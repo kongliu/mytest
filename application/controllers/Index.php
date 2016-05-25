@@ -26,6 +26,8 @@ class Index extends CI_Controller {
 		$query = $this->db->get('mycomm_feedback');
 		$res['data'] = $query->result_array();
 		// var_dump($res);exit;
+
 		$this->load->view('index/index',$res);
+		return json_encode($res);
 	}
 }
