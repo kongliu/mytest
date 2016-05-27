@@ -28,9 +28,27 @@ class Admin extends CI_Controller {
 		
 	}
 
-	public function getFeedbackList(){
+	public function getNewsList(){
 
 		$query = $this->db->get('mycomm_news');
+		$res = $query->result_array();
+		// var_dump($res);exit;
+		echo json_encode( array('data'=>$res) );
+
+
+	}
+	public function getHotsList(){
+
+		$query = $this->db->get('mycomm_hots');
+		$res = $query->result_array();
+		// var_dump($res);exit;
+		echo json_encode( array('data'=>$res) );
+
+
+	}
+
+	public function getCurrentHotsList(){
+		$query = $this->db->select('id,des,path,create_time,top')->from('mycomm_hots')->where('top >',0)->order_by('top','DESC')->limit(5)->get();
 		$res = $query->result_array();
 		// var_dump($res);exit;
 		echo json_encode( array('data'=>$res) );

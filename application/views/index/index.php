@@ -158,29 +158,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		      $scope.newdatas= user.data;
 		    });
 //轮播图
+       
         $scope.myInterval = 1000;
         $scope.active = 0;
         var slides = $scope.slides = [];
         var currIndex = 0;
 
+
         $scope.addSlide = function() {
-        var newWidth = 20 + slides.length ;
+        // var newWidth = 20 + slides.length ;
             slides.push({
-            image: './../../img/Journey Screenshot ' + newWidth + '.jpg',
+            image:slides.path,
             text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],
             id: currIndex++
             });
         };
-
+        Datas.getCurrentHotsList({})
+            .$promise.then(function(hot) {
+              $scope.slides= hot.data;
+              console.log($scope.slides);
+            }); 
        /* $scope.randomize = function() {
             var indexes = generateIndexesArray();
             assignNewIndexesToSlides(indexes);
         };*/
 
-        for (var i = 0; i < 4; i++) {
-            $scope.addSlide();
+        for (var i in $scope.slides) {
+            slides.push({
+            image:i.path,
+            text: ['Nice image','Awesome photograph','That is so cool','I love that'][$scope.slides.length % 4],
+            id: currIndex++
+            });
         }
-
         // Randomize logic below
 
    /*     function assignNewIndexesToSlides(indexes) {
